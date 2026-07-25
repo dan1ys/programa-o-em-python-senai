@@ -1,0 +1,50 @@
+# cliente 1
+nome1 = input("Nome do cliente 1: ")
+idade1 = int(input("Idade do cliente 1: "))
+quarto1 = input("Quarto (Simples, Duplo ou Luxo): ")
+dias1 = int(input("Quantos dias ficará? "))
+
+if quarto1 == "Simples":
+    valor1 = 100 * dias1
+elif quarto1 == "Duplo":
+    valor1 = 150 * dias1
+else:
+    valor1 = 250 * dias1
+
+# cliente 2
+nome2 = input("\nNome do cliente 2: ")
+idade2 = int(input("Idade do cliente 2: "))
+quarto2 = input("Quarto (Simples, Duplo ou Luxo): ")
+dias2 = int(input("Quantos dias ficará? "))
+
+if quarto2 == "Simples":
+    valor2 = 100 * dias2
+elif quarto2 == "Duplo":
+    valor2 = 150 * dias2
+else:
+    valor2 = 250 * dias2
+
+# cliente 3
+nome3 = input("\nNome do cliente 3: ")
+idade3 = int(input("Idade do cliente 3: "))
+quarto3 = input("Quarto (Simples, Duplo ou Luxo): ")
+dias3 = int(input("Quantos dias ficará? "))
+
+if quarto3 == "Simples":
+    valor3 = 100 * dias3
+elif quarto3 == "Duplo":
+    valor3 = 150 * dias3
+else:
+    valor3 = 250 * dias3
+
+# lista de clientes
+clientes = [nome1, nome2, nome3]
+
+# resultados
+print("\nClientes cadastrados:")
+print(clientes)
+
+print("\nPagamento")
+print(nome1, "- R$", valor1)
+print(nome2, "- R$", valor2)
+print(nome3, "- R$", valor3)
