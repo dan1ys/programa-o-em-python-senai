@@ -1,45 +1,89 @@
-import tkinter as tk
+import sqlite3
 
 
-
-def display():
-    n1 = float(entrada1.get())
-    n2 = float(entrada2.get())
-    soma  =  n1  +  n2
-    texto_.config(text = soma)
+con = sqlite3.connect('cadastro.db')
+cursor = con.cursor()
 
 
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS clientes(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,            
+        nome TEXT NOT NULL,
+        email TEXT NOT NULL 
+   )
+''')
 
 
-janela = tk.Tk()
-janela.geometry('600x300')
-
-
-# tk.Label(janela, text  =  'isso é um texto',font=('System', 30), fg= 'blue' ).pack()
-
-
-sessao_1 =  tk.Frame(janela)
-sessao_1.pack()
-
-
-
-entrada1  =  tk.Entry(sessao_1, font=('System', 15), fg= 'red')
-entrada1.pack(pady= 10)
-
-
-entrada2  =  tk.Entry(sessao_1, font=('System', 15), fg= 'red')
-entrada2.pack(pady= 10)
-
-
-btn  =  tk.Button(sessao_1, text = '+', command=display, font=('System', 15), fg= 'blue')
-btn.pack()
-
-
-texto_  =  tk.Label(sessao_1, text  =  'Resultado = ',font=('System', 15), fg= 'blue' )
-texto_.pack()
+# crud
 
 
 
 
-janela.mainloop()
+def criar_cliente(nome, email):
+    cursor.execute('INSERT INTO clientes (nome, email) values(?,?)', (nome, email))
+    con.commit()
 
+
+def listar_clentes():
+    cursor.execute('SELECT * FROM clientes')
+    return cursor.fetchall()
+
+
+def atualizar_mail(id_cliente, novo_email):
+    cursor.execute('UPDATE clientes SET email=? WHERE id = ?', (novo_email, id_cliente))
+    con.commit()
+
+
+def deletar_cliente(id_cliente):
+    cursor.execute('DELETE FROM clientes WHERE id = ?', (id_cliente,))
+    con.commit()
+
+
+
+
+def sistema():
+
+
+    while True: 
+
+
+        op = input('O que deseja fazer 1 - add cliente | 2 -  atualizar | 3 - deletar  : ')
+
+
+        if  op == '1':
+
+
+
+            nome =  input('Nome: ')
+            email = input('e - mail: ')
+            criar_cliente(nome, email)
+            criar_cliente('Lucas', 'Lucas@gmail.com')
+            print('Inserindo ... ')
+            print(listar_clentes())
+
+
+        elif op == '2':
+            print(listar_clentes()) 
+            id  =  int(input('Id: '))
+            n_email = input('e - mail: ')
+            # atualizar
+            print('Atualizando ...')
+            atualizar_mail(id, n_email)
+            print(listar_clentes())
+
+
+
+        elif op == '3':   
+        # delete
+            
+            print(listar_clentes())
+            id  =  int(input('Id: '))
+            print('deletando ... ')
+            deletar_cliente(id)
+            print(listar_clentes())
+
+
+            con.close()
+
+
+sistema()            
